@@ -3,11 +3,11 @@
 
 国外机子
 ```
-ql repo https://github.com/wd210010/just_for_happy.git "" "backup" "" ""
+ql repo https://github.com/445526665/qiandao.git "" "backup" "" ""
 ```
 国内机子
 ```
-ql repo https://ghproxy.com/https://github.com/wd210010/just_for_happy.git "" "backup" "" ""
+ql repo https://ghproxy.com/https://github.com/445526665/qiandao.git "" "backup" "" ""
 ```
 - [x] 脚本排错
 
