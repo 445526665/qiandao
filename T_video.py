@@ -15,6 +15,10 @@ corpid = 'ww7606bbf6c1cccea9'  # 企业ID
 secret = 'CxY9TMEe-zsnUrGYXgS6au_hJpKJtUYd_kNiWBSh-X8'  # 应用的凭证密钥
 agentid = '1000002' # 应用id
 
+# PushPlus 推送相关参数，需要替换掉 <you token>
+pp_token = 'f62e59644fac404cae0fea8df8f96d3d'  # Push Plus 推送的 token
+pp_topic = '腾讯视频会员签到'  # Push Plus 推送的主题
+
 # 用列表存储多组账号参数
 accounts = [
     {'vdevice_qimei36': '7a36822f71c2956c8b735159100016016509',
@@ -87,7 +91,28 @@ def ten_video(account):
         log = log + "获取状态异常，可能是cookie失效"
         print(res)
 
-    # 推送到企业微信
+
+
+    # PushPlus 推送
+    push_count = 0
+    if push == '1':
+        if push_count == 0:
+            now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            headers = {'Content-Type': 'application/json'}
+            payload = {'token': pp_token, 'title': pp_topic + ' ' + now, 'content': log.strip()}
+            r = requests.post('https://www.pushplus.plus/send', data=json.dumps(payload), headers=headers)
+            push_count += 1
+            if r.status_code == 200:
+                print(r.text)
+            else:
+                print('Push Plus 推送失败')
+                print(r.text)
+        else:
+            print('今天已经发送过消息，不再推送')
+    else:
+        print('不推送')
+
+ # 推送到企业微信
     print(push_a(log))
 
 
@@ -114,7 +139,7 @@ def push_a(content):
             "duplicate_check_interval": 1800
         })
         resp = requests.post(url, data=data, headers={'Content-Type': 'application/json'})
-        return (json.loads(resp.text).get('errmsg'))
+        return (json.loads(resp.text).get('errmsg'))       
 
 
 def main():
