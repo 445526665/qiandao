@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -- coding: utf-8 --
-#@Author : github@raindrop https://github.com/raindrop-hb/tencent-video
+#@Author : github https://github.com/445526665/qiandao
 # @Time : 2023/3/31 10:23
 # -------------------------------
 # cron "30 0,1,2 * * *" script-path=xxx.py,tag=匹配cron用
@@ -9,6 +9,7 @@
 import requests
 import json
 import time
+
 
 push = '1' # 是否 Push Plus 推送，1为是，0为否
 pp_token = 'f62e59644fac404cae0fea8df8f96d3d' # Push Plus 推送的 token
@@ -50,7 +51,7 @@ def ten_video(account):
     time_1 = int(time.time())
     time_2 = time.localtime(time_1)
     now = time.strftime("%Y-%m-%d %H:%M:%S", time_2)
-    log = "腾讯视频会员签到执行任务\n--------------raindrop--------------\n" + now + '\nQQ:' + account['tag']
+    log = "腾讯视频会员签到执行任务\n" + now + '\nQQ:' + account['tag']
     #积分查询
     url_3 = 'https://vip.video.qq.com/fcgi-bin/comm_cgi?name=spp_vscore_user_mashup&cmd=&otype=xjson&type=1'
     headers_3 = {
@@ -173,6 +174,7 @@ def ten_video(account):
 
  # 推送到企业微信
     print(push_a(log))
+
 
 def push_a(content):
     if wechat_push == '0':
