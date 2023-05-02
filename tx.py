@@ -10,7 +10,6 @@ import requests
 import json
 import time
 
-
 push = '1' # 是否 Push Plus 推送，1为是，0为否
 pp_token = 'f62e59644fac404cae0fea8df8f96d3d' # Push Plus 推送的 token
 pp_topic = '腾讯视频会员签到' # Push Plus 推送的主题
@@ -24,7 +23,7 @@ agentid = '1000002' # 应用id
 accounts = [
     {
 
-        "tag": "测试1",
+        "QQ": "测试1",
         'vdevice_qimei36': '7a36822f71c2956c8b735159100016016509',
         'vqq_appid': '101483052',
         'vqq_openid': '94AE47E8F7B8E06C8CFF304ABE53F1D6',
@@ -32,7 +31,7 @@ accounts = [
         'main_login': 'qq'
     },
     {
-        "tag": "测试2",
+        "QQ": "测试2",
         'vdevice_qimei36': '7a36822f71c2956c8b735159100016016509',
         'vqq_appid': '101483052',
         'vqq_openid': '94AE47E8F7B8E06C8CFF304ABE53F1D6',
@@ -51,7 +50,7 @@ def ten_video(account):
     time_1 = int(time.time())
     time_2 = time.localtime(time_1)
     now = time.strftime("%Y-%m-%d %H:%M:%S", time_2)
-    log = "腾讯视频会员签到执行任务\n" + now + '\nQQ:' + account['tag']
+    log = "腾讯视频会员签到执行任务\n" + now + '\nQQ:' + account['']
     #积分查询
     url_3 = 'https://vip.video.qq.com/fcgi-bin/comm_cgi?name=spp_vscore_user_mashup&cmd=&otype=xjson&type=1'
     headers_3 = {
@@ -174,7 +173,6 @@ def ten_video(account):
 
  # 推送到企业微信
     print(push_a(log))
-
 
 def push_a(content):
     if wechat_push == '0':
