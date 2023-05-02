@@ -4,7 +4,7 @@
 # @Time : 2023/3/31 10:23
 # -------------------------------
 # cron "30 0,1,2 * * *" script-path=xxx.py,tag=匹配cron用
-# const $ = new Env('腾讯视频签到');
+# const $ = new Env('腾讯视频签到2');
 
 import requests
 import json
