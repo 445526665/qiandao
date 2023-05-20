@@ -4,7 +4,7 @@
 # #作者：https://www.52pojie.cn/thread-1231190-1-1.html
 # # -------------------------------
 # # cron "30 4 * * *" script-path=xxx.py,tag=匹配cron用
-# # const $ = new Env('天翼云盘签到');
+# # const $ = new Env('天翼云盘签到2');
 
 
 
