@@ -22,6 +22,7 @@ class AliyunSignIn(object):
     def __init__(self, refresh_token, nickname):
         self.refresh_token = refresh_token
         self.nickname = nickname
+        self.nick_name = None   # 初始化 nick_name 属性
 
     def get_access_token(self):
         url = 'https://auth.aliyundrive.com/v2/account/token'
@@ -36,16 +37,17 @@ class AliyunSignIn(object):
         res = requests.post(url, headers=headers, json=data)
         if res.status_code == 200:
             self.access_token = f'Bearer {res.json()["access_token"]}'
-            self.nick_name = res.json()['nick_name']
+            self.nick_name = res.json()['nick_name']  # 更新 nick_name 属性
             return True
         return False
 
     def sign_in(self):
-        print(f'开始获取账号【{self.nickname}】的access_token')
-        if_ = self.get_access_token()
-        print(f'正在运行【{self.nickname}】的access_token获取完成{self.nick_name}\n开始签到')
-        if not if_:
-            print(f'正在运行【{self.nickname}】的获取access_token失败')
+        #print(f'开始获取账号【{self.nickname}】的access_token')
+        if not self.get_access_token():   # 确保在获取令牌失败时，nick_name 属性也能被正确初始化
+            print(f'【{self.nickname}】的获取token失败')
+            return
+        print(f'开始获取账号【{self.nickname}】的token获取完成{self.nick_name}\n开始签到')
+
         url = 'https://member.aliyundrive.com/v1/activity/sign_in_list'
         headers = {
             "Content-Type": "application/json",
@@ -70,7 +72,7 @@ class AliyunSignIn(object):
 
             if notice:
                 notifyStr = f'{notifyStr},获得【{notice}】'
-            print(f'正在运行【{self.nickname}】的{notifyStr}')
+            print(f'正在运行\n【{self.nickname}】的{notifyStr}')
 
             # push+推送功能
             if pushplus_push:
